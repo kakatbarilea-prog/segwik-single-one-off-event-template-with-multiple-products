@@ -2,10 +2,10 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Event Page – Wireframe (Product Picker added)</title>
+  <title>Event Page – Wireframe (with Map Embed)</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <!-- Font Awesome for calendar & location icons -->
+  <!-- Font Awesome for the calendar/location icons -->
   <link
     rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
@@ -21,7 +21,7 @@
     .featured-wrap { display: flex; justify-content: center; margin-bottom: 24px; }
     .featured {
       width: 80%;
-      aspect-ratio: 16/9;  /* 1920x1080 placeholder aspect */
+      aspect-ratio: 16/9;         /* 1920x1080 placeholder aspect */
       border: 1px dashed #bbb;
       display: grid;
       place-items: center;
@@ -40,19 +40,45 @@
     .short-desc { margin: 0 0 24px; color: #444; }
 
     h2 { margin: 24px 0 8px; font-size: 20px; }
-    .dt-row { display: flex; align-items: center; gap: 8px; font-size: 16px; }
-    .time-line { margin-top: 4px; color: #333; }
 
-    .location-name { font-weight: 700; display: flex; align-items: center; gap: 6px; }
-    .location-name i { color: #1a73e8; }
-    .address { margin-top: 4px; color: #333; }
+    /* Date and Time row */
+    .dt-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;           /* space between icon and text */
+      font-size: 16px;
+    }
+    .dt-row i {
+      color: #333;        /* neutral icon color */
+      flex-shrink: 0;
+    }
 
-    /* Use details/summary to unfold the map */
-    details.map { margin-top: 10px; }
+    /* Location row (consistent with dt-row) */
+    .location-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      margin-top: 8px;
+    }
+    .location-row i {
+      color: #333;
+      flex-shrink: 0;
+      line-height: 1.2;
+      margin-top: 2px; /* nudge for baseline alignment */
+    }
+    .location-lines {
+      display: flex;
+      flex-direction: column;
+    }
+    .location-name { font-weight: 700; }
+    .address { margin-top: 4px; color: #6b7280; }
+
+    /* Get directions (details/summary) */
+    details.map { margin-top: 8px; }
     details.map summary {
       list-style: none;
       cursor: pointer;
-      color: #1a73e8;
+      color: #1a73e8;           /* blue link style */
       display: inline-block;
       padding: 4px 0;
       outline: none;
@@ -74,52 +100,34 @@
 
     .full-desc { margin-top: 24px; color: #333; line-height: 1.5; }
 
-    /* --- Right Column Card (add product picker, keep price left / CTA right) --- */
+    /* --- Right Column Card --- */
     .side-card {
       border: 1px solid #ccc; padding: 16px; border-radius: 6px;
-      display: grid;
-      grid-template-columns: 1fr auto;            /* price/date left, CTA right */
-      grid-template-areas:
-        "picker picker"
-        "price  cta";
-      gap: 16px;
-      align-items: center;
+      display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 12px;
     }
-
-    /* Product picker */
-    .picker { grid-area: picker; display: grid; gap: 10px; }
-    .picker-label { font-weight: 700; font-size: 14px; color: #333; }
-    .picker-options { display: grid; gap: 8px; }
-    .picker-option {
-      display: flex; align-items: center; gap: 8px;
-      border: 1px solid #ddd; border-radius: 6px; padding: 8px 10px;
-    }
-    .picker-option input { margin: 0; }
-    .picker-option .name { font-weight: 600; }
-    .picker-option .meta { margin-left: auto; font-size: 12px; color: #555; } /* optional */
-
-    /* Price/Date (left) */
-    .price-area { grid-area: price; display: flex; flex-direction: column; gap: 4px; }
+    .price-area { display: flex; flex-direction: column; gap: 4px; }
     .price { font-weight: 700; }
     .price-sub { font-size: 14px; color: #444; }
-
-    /* CTA (right) — reverted to previous style */
-    .cta {
-      grid-area: cta;
-      display: inline-block;
-      padding: 10px 14px;
-      border: 1px solid #000;
-      background: #eee;
-      text-decoration: none;
-      color: #000;
-      border-radius: 4px;
-    }
+    .cta { display: inline-block; padding: 10px 14px; border: 1px solid #000; background: #eee; text-decoration: none; color: #000; border-radius: 4px; }
 
     /* --- More Events --- */
     .more-wrap { text-align: center; margin: 24px 0 16px; }
-    .more-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 48px; }
-    .event-card { border: 1px solid #ddd; border-radius: 6px; padding: 12px; display: grid; gap: 8px; }
-    .event-thumb { width: 100%; aspect-ratio: 16/9; border: 1px dashed #bbb; background: #f5f5f5; display: grid; place-items: center; color: #666; font-size: 14px; }
+    .more-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-bottom: 48px;
+    }
+    .event-card {
+      border: 1px solid #ddd; border-radius: 6px; padding: 12px; display: grid; gap: 8px;
+    }
+    .event-thumb {
+      width: 100%;
+      aspect-ratio: 16/9;
+      border: 1px dashed #bbb;
+      background: #f5f5f5;
+      display: grid; place-items: center; color: #666; font-size: 14px;
+    }
     .event-title { font-weight: 700; }
     .event-loc, .event-short { color: #444; font-size: 14px; }
     .event-cta {
@@ -129,6 +137,196 @@
       text-decoration: none; color: #000; border-radius: 4px;
       min-width: 120px; text-align: center;
     }
+
+    /* ===================== */
+    /* Modal (popup) styles  */
+    /* ===================== */
+    .modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.5);
+      display: none;              /* hidden by default */
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      z-index: 9999;
+    }
+    .modal.open { display: flex; }
+
+    .modal-dialog {
+      width: 100%;
+      max-width: 960px;           /* fits nicely within 1200px page */
+      background: #fff;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: flex-end;
+      padding: 8px 12px;
+    }
+    .modal-close {
+      background: #f1f1f1;
+      border: 0;
+      border-radius: 999px;
+      width: 32px;
+      height: 32px;
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      font-size: 18px;
+    }
+
+    .modal-body {
+      display: grid;
+      grid-template-columns: 6fr 4fr;   /* 60% / 40% */
+      gap: 0;
+      border-top: 1px solid #eee;
+      border-bottom: 1px solid #eee;
+    }
+
+    /* Left side */
+    .modal-left {
+      padding: 20px 24px;
+      max-height: 70vh;           /* inner scroll to keep content within popup */
+      overflow: auto;
+    }
+    .modal-title {
+      text-align: center;
+      color: #2f2e41;
+      font-weight: 600;
+      font-size: 20px;
+      margin: 4px 0 6px;
+    }
+    .modal-subtitle {
+      text-align: center;
+      font-size: 14px;
+      color: #6b7280;
+      margin: 0 0 12px;
+    }
+    .modal-left hr {
+      border: 0;
+      border-top: 1px solid #e5e7eb;
+      margin: 12px 0 16px;
+    }
+
+    /* Promo row */
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .promo-row {
+      grid-column: 1 / -1;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 6px;
+      margin-bottom: 12px;
+      position: relative;
+    }
+    .promo-row label { font-size: 12px; color: #2f2e41; }
+    .promo-row input {
+      height: 36px;
+      border: 1px solid #2f2e41;
+      border-radius: 8px;
+      padding: 6px 86px 6px 10px;
+      font: inherit;
+      background: #fff;
+    }
+    .promo-row .apply {
+      color: #1a73e8;
+      text-decoration: none;
+      cursor: pointer;
+      font-size: 14px;
+      position: absolute;
+      right: 14px;
+      top: 50%;
+      transform: translateY(10%);
+      line-height: 1;
+    }
+
+    /* Product picker boxes */
+    .products-wrap { grid-column: 1 / -1; display: grid; gap: 10px; margin-bottom: 8px; }
+    .product-box {
+      border: 1px solid #d1d5db;
+      border-radius: 8px;
+      padding: 10px;
+      display: grid;
+      gap: 6px;
+      cursor: pointer;
+    }
+    .product-box.selected { outline: 2px solid #1a73e8; border-color: #1a73e8; }
+    .product-top {
+      display: grid;
+      grid-template-columns: 1fr auto auto;
+      align-items: center;
+      gap: 10px;
+    }
+    .product-name { font-weight: 600; }
+    .product-price { justify-self: end; }
+    .qty-controls {
+      display: inline-grid;
+      grid-auto-flow: column;
+      gap: 6px;
+      align-items: center;
+    }
+    .qty-btn {
+      width: 24px; height: 24px; border-radius: 4px;
+      border: 1px solid #ccc; background: #fff; cursor: pointer;
+      font: inherit; line-height: 1;
+    }
+    .product-desc { color: #6b7280; font-size: 14px; }
+
+    /* Inputs after products */
+    .field { display: flex; flex-direction: column; gap: 6px; }
+    .field input, .field select {
+      height: 34px;
+      padding: 6px 10px;
+      border: 1px solid #cbd5e1;
+      border-radius: 4px;
+      font: inherit;
+      background: #fff;
+    }
+    .field input::placeholder { color: #6b7280; }
+    .sr-only {
+      position: absolute !important;
+      width: 1px; height: 1px;
+      padding: 0; margin: -1px;
+      overflow: hidden; clip: rect(0,0,0,0);
+      white-space: nowrap; border: 0;
+    }
+
+    /* Right side */
+    .modal-right {
+      padding: 20px 16px;
+      border-left: 1px solid #eee;
+      background: #fafafa;
+      display: grid;
+      gap: 12px;
+      align-content: start;
+    }
+    .summary-image {
+      width: 100%;
+      aspect-ratio: 16/9;
+      border: 1px dashed #bbb;
+      background: #f5f5f5;
+      display: grid; place-items: center; color: #666; font-size: 12px;
+    }
+    .summary-title { font-weight: 600; margin-top: 4px; }
+    .summary-list { display: grid; gap: 6px; }
+    .summary-row {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      font-size: 14px;
+    }
+    .tax-row, .total-row {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+    }
+    .tax-row { color: #444; }
+    .total-row { font-weight: 700; font-size: 16px; }
+    .line { border: 0; border-top: 1px solid #e5e7eb; margin: 8px 0; }
+
+    .modal-footer { padding: 14px; display: grid; place-items: center; }
   </style>
 </head>
 <body>
@@ -151,29 +349,29 @@
         <h2>Date and Time</h2>
         <div class="dt-row">
           <i class="fa-regular fa-calendar" aria-hidden="true"></i>
-          <span style="font-size:16px">[day of week], [month] [date] • [start time] – [end time] [timezone]</span>
+          <span>[day of week], [month] [date] • [start time] – [end time] [timezone]</span>
         </div>
 
         <h2>Location</h2>
-        <div class="location-name">
+        <div class="location-row">
           <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
-          [location name]
-        </div>
-        <div class="address">[location address], [location city], [location state] [location zipcode]</div>
-
-        <!-- Get Directions unfolds an actual Google Map embed -->
-        <details class="map">
-          <summary>Get Directions</summary>
-          <div class="map-embed" aria-label="Map">
-            <iframe
-              title="Google Map"
-              loading="lazy"
-              allowfullscreen
-              referrerpolicy="no-referrer-when-downgrade"
-              src="https://www.google.com/maps?q=[location address], [location city], [location state] [location zipcode]&output=embed">
-            </iframe>
+          <div class="location-lines">
+            <div class="location-name">[location name]</div>
+            <div class="address">[location address], [location city], [location state] [location zipcode]</div>
+            <details class="map">
+              <summary>Get directions</summary>
+              <div class="map-embed" aria-label="Map">
+                <iframe
+                  title="Google Map"
+                  loading="lazy"
+                  allowfullscreen
+                  referrerpolicy="no-referrer-when-downgrade"
+                  src="https://www.google.com/maps?q=[location address], [location city], [location state] [location zipcode]&output=embed">
+                </iframe>
+              </div>
+            </details>
           </div>
-        </details>
+        </div>
 
         <div class="full-desc">
           [event child description]
@@ -183,34 +381,10 @@
       <!-- RIGHT COLUMN (40%) -->
       <aside>
         <div class="side-card">
-          <!-- Product Picker (full width row; first option pre-selected) -->
-          <div class="picker" role="group" aria-labelledby="picker-label">
-            <div class="picker-options">
-              <label class="picker-option">
-                <input type="radio" name="product" value="product1" checked />
-                <span class="name">[product 1]</span>
-                <span class="meta"></span>
-              </label>
-              <label class="picker-option">
-                <input type="radio" name="product" value="product2" />
-                <span class="name">[product 2]</span>
-                <span class="meta"></span>
-              </label>
-              <label class="picker-option">
-                <input type="radio" name="product" value="product3" />
-                <span class="name">[product 3]</span>
-                <span class="meta"></span>
-              </label>
-            </div>
-          </div>
-
-          <!-- Price/Date (left column inside card) -->
           <div class="price-area">
             <div class="price">[product price]</div>
             <div class="price-sub">[month] [date] • [start time] [timezone]</div>
           </div>
-
-          <!-- CTA (right column inside card) -->
           <a class="cta" href="javascript:void(0)">[child event cta]</a>
         </div>
       </aside>
@@ -252,5 +426,246 @@
     </section>
 
   </div>
+
+  <!-- ========================= -->
+  <!-- Pop-up (Modal) Markup     -->
+  <div class="modal" id="orderModal" aria-hidden="true" role="dialog" aria-label="Order popup">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <button class="modal-close" type="button" aria-label="Close">&times;</button>
+      </div>
+
+      <div class="modal-body">
+        <!-- Left 60% -->
+        <div class="modal-left">
+          <div class="modal-title">[child event name]</div>
+          <div class="modal-subtitle">[day of week], [month] [date] • [start time] – [end time] [timezone]</div>
+          <hr />
+
+          <!-- Promo -->
+          <div class="promo-row">
+            <label for="promo">Promo Code</label>
+            <input id="promo" type="text" placeholder="Enter code" />
+            <a href="javascript:void(0)" class="apply">Apply</a>
+          </div>
+
+          <!-- Product picker (select multiples) -->
+          <div class="products-wrap" id="productsWrap">
+            <div class="product-box" data-id="p1" data-name="[product name 1]" data-price="[product price 1]">
+              <div class="product-top">
+                <div class="product-name">[product name 1]</div>
+                <div class="product-price">[product price 1]</div>
+                <div class="qty-controls">
+                  <button class="qty-btn" data-action="decr">-</button>
+                  <span class="qty-val">0</span>
+                  <button class="qty-btn" data-action="incr">+</button>
+                </div>
+              </div>
+              <div class="product-desc">[product short description 1]</div>
+            </div>
+
+            <div class="product-box" data-id="p2" data-name="[product name 2]" data-price="[product price 2]">
+              <div class="product-top">
+                <div class="product-name">[product name 2]</div>
+                <div class="product-price">[product price 2]</div>
+                <div class="qty-controls">
+                  <button class="qty-btn" data-action="decr">-</button>
+                  <span class="qty-val">0</span>
+                  <button class="qty-btn" data-action="incr">+</button>
+                </div>
+              </div>
+              <div class="product-desc">[product short description 2]</div>
+            </div>
+
+            <div class="product-box" data-id="p3" data-name="[product name 3]" data-price="[product price 3]">
+              <div class="product-top">
+                <div class="product-name">[product name 3]</div>
+                <div class="product-price">[product price 3]</div>
+                <div class="qty-controls">
+                  <button class="qty-btn" data-action="decr">-</button>
+                  <span class="qty-val">0</span>
+                  <button class="qty-btn" data-action="incr">+</button>
+                </div>
+              </div>
+              <div class="product-desc">[product short description 3]</div>
+            </div>
+          </div>
+
+          <!-- Name / Email / Phone / Industry -->
+          <div class="form-grid">
+            <div class="field">
+              <label for="first" class="sr-only">First Name</label>
+              <input id="first" type="text" placeholder="First name*" />
+            </div>
+            <div class="field">
+              <label for="last" class="sr-only">Last Name</label>
+              <input id="last" type="text" placeholder="Last name*" />
+            </div>
+
+            <div class="field">
+              <label for="email" class="sr-only">Email</label>
+              <input id="email" type="email" placeholder="Primary Email*" />
+            </div>
+            <div class="field">
+              <label for="phone" class="sr-only">Phone</label>
+              <input id="phone" type="tel" placeholder="Primary Phone*" />
+            </div>
+
+            <div class="field" style="grid-column: 1 / -1;">
+              <label for="industry">Industry</label>
+              <select id="industry">
+                <option value="">Select Industry</option>
+                <option>Real Estate</option>
+                <option>Finance</option>
+                <option>Technology</option>
+                <option>Education</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right 40% -->
+        <aside class="modal-right">
+          <div class="summary-image">[child featured image]</div>
+          <div class="summary-title">Order Summary</div>
+
+          <div class="summary-list" id="summaryList">
+            <!-- dynamically filled -->
+          </div>
+
+          <div class="tax-row">
+            <div>Sales tax</div>
+            <div id="salesTax">[sales tax]</div>
+          </div>
+
+          <hr class="line" />
+
+          <div class="total-row">
+            <div>Total</div>
+            <div id="totalPrice">[total price]</div>
+          </div>
+        </aside>
+      </div>
+
+      <div class="modal-footer">
+        <a class="cta" href="javascript:void(0)">[child event cta]</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Minimal JS to open/close and dynamic product/summary logic -->
+  <script>
+    (function () {
+      const openBtn = document.querySelector('.side-card .cta');
+      const modal = document.getElementById('orderModal');
+      const closeBtn = modal.querySelector('.modal-close');
+
+      function openModal() {
+        modal.classList.add('open');
+        modal.setAttribute('aria-hidden', 'false');
+        updateSummary();
+      }
+      function closeModal() {
+        modal.classList.remove('open');
+        modal.setAttribute('aria-hidden', 'true');
+      }
+
+      openBtn && openBtn.addEventListener('click', openModal);
+      closeBtn && closeBtn.addEventListener('click', closeModal);
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal) closeModal(); // click on backdrop
+      });
+
+      // Helpers to parse/format currency-like placeholders
+      function parseAmount(str) {
+        if (!str) return NaN;
+        const m = (str + '').match(/[\d.,]+/);
+        if (!m) return NaN;
+        const normalized = m[0].replace(/,/g, '');
+        return parseFloat(normalized);
+      }
+      function currencySymbol(str) {
+        const m = (str || '').match(/^[^\d]+/);
+        return m ? m[0] : '';
+      }
+      function formatLike(example, amount) {
+        const sym = currencySymbol(example);
+        const decimals = /\.\d{2}/.test(example) ? 2 : 0;
+        return isNaN(amount) ? example : sym + amount.toFixed(decimals);
+      }
+
+      // Product picker interactions
+      const productsWrap = document.getElementById('productsWrap');
+      const summaryList = document.getElementById('summaryList');
+      const taxEl = document.getElementById('salesTax');
+      // NOTE: We intentionally DO NOT compute total; we leave [total price] as-is.
+      // const totalEl = document.getElementById('totalPrice');
+
+      productsWrap.querySelectorAll('.product-box').forEach(box => {
+        box.addEventListener('click', (e) => {
+          if (e.target.classList.contains('qty-btn')) return;
+          box.classList.toggle('selected');
+          const qtySpan = box.querySelector('.qty-val');
+          let q = parseInt(qtySpan.textContent, 10) || 0;
+          if (box.classList.contains('selected') && q === 0) {
+            q = 1; qtySpan.textContent = 1;
+          }
+          if (!box.classList.contains('selected')) {
+            qtySpan.textContent = 0;
+          }
+          updateSummary();
+        });
+
+        box.querySelectorAll('.qty-btn').forEach(btn => {
+          btn.addEventListener('click', (ev) => {
+            ev.stopPropagation();
+            const qtySpan = box.querySelector('.qty-val');
+            let q = parseInt(qtySpan.textContent, 10) || 0;
+            if (btn.dataset.action === 'incr') q++;
+            if (btn.dataset.action === 'decr') q = Math.max(0, q - 1);
+            qtySpan.textContent = q;
+            if (q > 0) box.classList.add('selected'); else box.classList.remove('selected');
+            updateSummary();
+          });
+        });
+      });
+
+      function updateSummary() {
+        summaryList.innerHTML = '';
+        const boxes = Array.from(productsWrap.querySelectorAll('.product-box'));
+        const selected = boxes
+          .map(b => {
+            const qty = parseInt(b.querySelector('.qty-val').textContent, 10) || 0;
+            return qty > 0 ? {
+              name: b.dataset.name,
+              priceText: b.dataset.price,
+              unit: parseAmount(b.dataset.price),
+              qty
+            } : null;
+          })
+          .filter(Boolean);
+
+        // Build summary rows
+        selected.forEach(item => {
+          const row = document.createElement('div');
+          row.className = 'summary-row';
+          const left = document.createElement('div');
+          left.textContent = `${item.qty} × ${item.name}`;
+          const right = document.createElement('div');
+          const lineTotal = item.qty * (isNaN(item.unit) ? 0 : item.unit);
+          right.textContent = formatLike(item.priceText, lineTotal);
+          row.appendChild(left); row.appendChild(right);
+          summaryList.appendChild(row);
+        });
+
+        // Sales tax display (keep placeholder format)
+        const taxAmt = parseAmount(taxEl.textContent);
+        const taxDisplay = isNaN(taxAmt) ? taxEl.textContent : formatLike(taxEl.textContent, taxAmt);
+        taxEl.textContent = taxDisplay;
+
+        // DO NOT compute or update total. Keep [total price] literal.
+      }
+    })();
+  </script>
 </body>
 </html>
