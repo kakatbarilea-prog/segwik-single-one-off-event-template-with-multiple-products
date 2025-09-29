@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Event Page – Wireframe (Product Picker added)</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Font Awesome for calendar & location icons -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    referrerpolicy="no-referrer"
+  />
+
+  <style>
+    /* --- Page Frame --- */
+    body { margin: 0; padding: 24px 0; font-family: system-ui, -apple-system, Segoe UI, Arial, sans-serif; }
+    .page { width: 1200px; margin: 0 auto; }
+
+    /* --- Featured Image (80% width, centered) --- */
+    .featured-wrap { display: flex; justify-content: center; margin-bottom: 24px; }
+    .featured {
+      width: 80%;
+      aspect-ratio: 16/9;  /* 1920x1080 placeholder aspect */
+      border: 1px dashed #bbb;
+      display: grid;
+      place-items: center;
+      background: #f7f7f7;
+      color: #666;
+      text-align: center;
+      padding: 8px;
+    }
+
+    /* --- Two Column Layout (60/40) --- */
+    .columns { display: grid; grid-template-columns: 3fr 2fr; gap: 24px; margin-bottom: 48px; }
+
+    /* --- Left Column Content --- */
+    .meta-date { font-size: 16px; color: #333; margin: 0 0 8px; }
+    h1 { margin: 0 0 12px; font-size: 28px; font-weight: 700; }
+    .short-desc { margin: 0 0 24px; color: #444; }
+
+    h2 { margin: 24px 0 8px; font-size: 20px; }
+    .dt-row { display: flex; align-items: center; gap: 8px; font-size: 16px; }
+    .time-line { margin-top: 4px; color: #333; }
+
+    .location-name { font-weight: 700; display: flex; align-items: center; gap: 6px; }
+    .location-name i { color: #1a73e8; }
+    .address { margin-top: 4px; color: #333; }
+
+    /* Use details/summary to unfold the map */
+    details.map { margin-top: 10px; }
+    details.map summary {
+      list-style: none;
+      cursor: pointer;
+      color: #1a73e8;
+      display: inline-block;
+      padding: 4px 0;
+      outline: none;
+    }
+    details.map summary::-webkit-details-marker { display: none; }
+
+    .map-embed {
+      margin-top: 10px;
+      aspect-ratio: 16/9;
+      width: 100%;
+      border: 1px solid #ccc;
+      background: #fafafa;
+      display: grid;
+      place-items: center;
+      color: #777;
+      font-size: 14px;
+    }
+    .map-embed iframe { width: 100%; height: 100%; border: 0; }
+
+    .full-desc { margin-top: 24px; color: #333; line-height: 1.5; }
+
+    /* --- Right Column Card (add product picker, keep price left / CTA right) --- */
+    .side-card {
+      border: 1px solid #ccc; padding: 16px; border-radius: 6px;
+      display: grid;
+      grid-template-columns: 1fr auto;            /* price/date left, CTA right */
+      grid-template-areas:
+        "picker picker"
+        "price  cta";
+      gap: 16px;
+      align-items: center;
+    }
+
+    /* Product picker */
+    .picker { grid-area: picker; display: grid; gap: 10px; }
+    .picker-label { font-weight: 700; font-size: 14px; color: #333; }
+    .picker-options { display: grid; gap: 8px; }
+    .picker-option {
+      display: flex; align-items: center; gap: 8px;
+      border: 1px solid #ddd; border-radius: 6px; padding: 8px 10px;
+    }
+    .picker-option input { margin: 0; }
+    .picker-option .name { font-weight: 600; }
+    .picker-option .meta { margin-left: auto; font-size: 12px; color: #555; } /* optional */
+
+    /* Price/Date (left) */
+    .price-area { grid-area: price; display: flex; flex-direction: column; gap: 4px; }
+    .price { font-weight: 700; }
+    .price-sub { font-size: 14px; color: #444; }
+
+    /* CTA (right) — reverted to previous style */
+    .cta {
+      grid-area: cta;
+      display: inline-block;
+      padding: 10px 14px;
+      border: 1px solid #000;
+      background: #eee;
+      text-decoration: none;
+      color: #000;
+      border-radius: 4px;
+    }
+
+    /* --- More Events --- */
+    .more-wrap { text-align: center; margin: 24px 0 16px; }
+    .more-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 48px; }
+    .event-card { border: 1px solid #ddd; border-radius: 6px; padding: 12px; display: grid; gap: 8px; }
+    .event-thumb { width: 100%; aspect-ratio: 16/9; border: 1px dashed #bbb; background: #f5f5f5; display: grid; place-items: center; color: #666; font-size: 14px; }
+    .event-title { font-weight: 700; }
+    .event-loc, .event-short { color: #444; font-size: 14px; }
+    .event-cta {
+      margin-top: 8px;
+      display: inline-flex; justify-content: center; align-items: center;
+      padding: 8px 16px; border: 1px solid #000; background: #eee;
+      text-decoration: none; color: #000; border-radius: 4px;
+      min-width: 120px; text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+
+    <!-- Top Featured Image (80% width, centered) -->
+    <div class="featured-wrap">
+      <div class="featured">[child featured image]</div>
+    </div>
+
+    <!-- Two Columns: Left 60% / Right 40% -->
+    <div class="columns">
+
+      <!-- LEFT COLUMN (60%) -->
+      <section>
+        <p class="meta-date">[day of week], [month] [date]</p>
+        <h1>[child event name]</h1>
+        <p class="short-desc">[child short description]</p>
+
+        <h2>Date and Time</h2>
+        <div class="dt-row">
+          <i class="fa-regular fa-calendar" aria-hidden="true"></i>
+          <span style="font-size:16px">[day of week], [month] [date] • [start time] – [end time] [timezone]</span>
+        </div>
+
+        <h2>Location</h2>
+        <div class="location-name">
+          <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
+          [location name]
+        </div>
+        <div class="address">[location address], [location city], [location state] [location zipcode]</div>
+
+        <!-- Get Directions unfolds an actual Google Map embed -->
+        <details class="map">
+          <summary>Get Directions</summary>
+          <div class="map-embed" aria-label="Map">
+            <iframe
+              title="Google Map"
+              loading="lazy"
+              allowfullscreen
+              referrerpolicy="no-referrer-when-downgrade"
+              src="https://www.google.com/maps?q=[location address], [location city], [location state] [location zipcode]&output=embed">
+            </iframe>
+          </div>
+        </details>
+
+        <div class="full-desc">
+          [event child description]
+        </div>
+      </section>
+
+      <!-- RIGHT COLUMN (40%) -->
+      <aside>
+        <div class="side-card">
+          <!-- Product Picker (full width row; first option pre-selected) -->
+          <div class="picker" role="group" aria-labelledby="picker-label">
+            <div class="picker-options">
+              <label class="picker-option">
+                <input type="radio" name="product" value="product1" checked />
+                <span class="name">[product 1]</span>
+                <span class="meta"></span>
+              </label>
+              <label class="picker-option">
+                <input type="radio" name="product" value="product2" />
+                <span class="name">[product 2]</span>
+                <span class="meta"></span>
+              </label>
+              <label class="picker-option">
+                <input type="radio" name="product" value="product3" />
+                <span class="name">[product 3]</span>
+                <span class="meta"></span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Price/Date (left column inside card) -->
+          <div class="price-area">
+            <div class="price">[product price]</div>
+            <div class="price-sub">[month] [date] • [start time] [timezone]</div>
+          </div>
+
+          <!-- CTA (right column inside card) -->
+          <a class="cta" href="javascript:void(0)">[child event cta]</a>
+        </div>
+      </aside>
+
+    </div>
+
+    <!-- More Events -->
+    <div class="more-wrap">
+      <h2>More Events</h2>
+    </div>
+
+    <section class="more-grid">
+      <!-- Card 1 -->
+      <article class="event-card">
+        <div class="event-thumb">[child featured image]</div>
+        <div class="event-title">[child event title]</div>
+        <div class="event-loc">[location name], [location address], [location city], [location state], [location zipcode]</div>
+        <div class="event-short">[child event short description]</div>
+        <a class="event-cta" href="javascript:void(0)">[child event cta]</a>
+      </article>
+
+      <!-- Card 2 -->
+      <article class="event-card">
+        <div class="event-thumb">[child featured image]</div>
+        <div class="event-title">[child event title]</div>
+        <div class="event-loc">[location name], [location address], [location city], [location state], [location zipcode]</div>
+        <div class="event-short">[child event short description]</div>
+        <a class="event-cta" href="javascript:void(0)">[child event cta]</a>
+      </article>
+
+      <!-- Card 3 -->
+      <article class="event-card">
+        <div class="event-thumb">[child featured image]</div>
+        <div class="event-title">[child event title]</div>
+        <div class="event-loc">[location name], [location address], [location city], [location state], [location zipcode]</div>
+        <div class="event-short">[child event short description]</div>
+        <a class="event-cta" href="javascript:void(0)">[child event cta]</a>
+      </article>
+    </section>
+
+  </div>
+</body>
+</html>
